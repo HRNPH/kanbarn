@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "550639988758",
+    "project_id": "kanbarn-b72be",
+    "storage_bucket": "kanbarn-b72be.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:550639988758:android:953cf7f0a2b1fc63168537",
+        "android_client_info": {
+          "package_name": "com.example.kanbarn"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "550639988758-2c0qgj0vmfoo7roe98lbm0s6cp8slk3k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAqQpOjGUr2X2BdkzffOAQtViuPC26dGbE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "550639988758-2c0qgj0vmfoo7roe98lbm0s6cp8slk3k.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "550639988758-3nvfgou7h5lobf95hc250qggga62ia16.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.kanbarn"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
