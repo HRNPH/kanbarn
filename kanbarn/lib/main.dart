@@ -85,19 +85,22 @@ class _MainState extends State<Main> {
             // sign in with google
             await FirebaseServices().signInWithGoogle().then((value) {
               if (value == true) {
-                // pop up another screen
-                Navigator.push(
+                // pop up another screen and clear history
+                Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(
                     builder: (context) => const SignedIn(),
                   ),
+                  (route) => false,
                 );
               } else {
-                // pop up another screen
+                // remove loading screen
+                Navigator.pop(context);
+                // pop up rejected screen
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const Rejected(),
+                    builder: (context) => Rejected(),
                   ),
                 );
               }

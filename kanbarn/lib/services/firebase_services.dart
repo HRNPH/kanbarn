@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class FirebaseServices {
@@ -42,8 +43,19 @@ class FirebaseServices {
     return true;
   }
 
-  storeUserMetaData(Map<String, dynamic> data) async {
-    // save data to firebase
-    // https://firebase.flutter.dev/docs/firestore/usage/
+  Future<bool> storeUserMetaData(Map<String, dynamic> data) async {
+    // check data structure if data is valid
+    if (data['classroom'].length == 3) {
+      if (data['classroom'][0].contains(RegExp(r'[0-9]'))) {
+        if (data['classroom'][1] == '0' || data['classroom'][1] == '1') {
+          if (data['classroom'][2].contains(RegExp(r'[0-9]'))) {
+            // if data is valid, store it to firebase
+
+            return true;
+          }
+        }
+      }
+    }
+    return false;
   }
 }

@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:kanbarn/classroom_board.dart';
+import 'package:kanbarn/rejected.dart';
 import 'package:kanbarn/services/firebase_services.dart';
 
 // import another widgets
@@ -14,6 +16,8 @@ class SignedIn extends StatefulWidget {
 }
 
 class _SignedInState extends State<SignedIn> {
+  // text controller
+  final TextEditingController _classroomController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,10 +59,11 @@ class _SignedInState extends State<SignedIn> {
                       ),
                     ),
                     const SizedBox(height: 20),
-                    const Padding(
-                      padding: EdgeInsets.all(20),
+                    Padding(
+                      padding: const EdgeInsets.all(20),
                       child: TextField(
-                        decoration: InputDecoration(
+                        controller: _classroomController,
+                        decoration: const InputDecoration(
                           border: OutlineInputBorder(),
                           labelText:
                               'หมายเลขชั้นเรียน (เช่น 608 = 6/8, 612 = 6/12)',
@@ -83,6 +88,37 @@ class _SignedInState extends State<SignedIn> {
                             );
                           },
                         );
+                        // save data to firebase
+                        await FirebaseServices().storeUserMetaData({
+                          'classroom': _classroomController.text,
+                        }).then((success) {
+                          if (success == true) {
+                            // clear loading screen
+                            Navigator.pop(context);
+                            debugPrint("Yoooo");
+                            // pop up another screen
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const Classroomboard(),
+                              ),
+                            );
+                          } else if (success == false) {
+                            // rejected
+                            // clear loading screen
+                            Navigator.pop(context);
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const Rejected(
+                                  message:
+                                      'ไม่สามารถดาวน์โหลดข้อมูลได้ ห้องเรียนไม่ถูกต้อง',
+                                  routes: SignedIn(),
+                                ),
+                              ),
+                            );
+                          }
+                        });
                       },
                       child: Text(
                         'เชื่อมต่อเข้าสู่ระบบ',
@@ -110,12 +146,13 @@ class _SignedInState extends State<SignedIn> {
                 ),
                 onPressed: () async {
                   await FirebaseServices().signOut().then((value) {
-                    // pop up another screen
-                    Navigator.push(
+                    // pop up another screen and clear all previous screen
+                    Navigator.pushAndRemoveUntil(
                       context,
                       MaterialPageRoute(
                         builder: (context) => const Main(),
                       ),
+                      (route) => false,
                     );
                   });
                 },
