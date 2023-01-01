@@ -95,7 +95,6 @@ class _SignedInState extends State<SignedIn> {
                           if (success == true) {
                             // clear loading screen
                             Navigator.pop(context);
-                            debugPrint("Yoooo");
                             // pop up another screen
                             Navigator.push(
                               context,
