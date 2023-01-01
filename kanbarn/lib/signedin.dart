@@ -6,14 +6,14 @@ import 'package:kanbarn/services/firebase_services.dart';
 // import another widgets
 import 'main.dart';
 
-class Home extends StatefulWidget {
-  const Home({super.key});
+class SignedIn extends StatefulWidget {
+  const SignedIn({super.key});
 
   @override
-  State<Home> createState() => _HomeState();
+  State<SignedIn> createState() => _SignedInState();
 }
 
-class _HomeState extends State<Home> {
+class _SignedInState extends State<SignedIn> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,7 +25,7 @@ class _HomeState extends State<Home> {
               Container(
                 margin: const EdgeInsets.only(top: 200),
                 child: Column(
-                  children: [
+                  children: <Widget>[
                     ClipRRect(
                       // rounded corners
                       borderRadius: BorderRadius.circular(200),
@@ -54,11 +54,47 @@ class _HomeState extends State<Home> {
                         color: Colors.black,
                       ),
                     ),
+                    const SizedBox(height: 20),
+                    const Padding(
+                      padding: EdgeInsets.all(20),
+                      child: TextField(
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText:
+                              'หมายเลขชั้นเรียน (เช่น 608 = 6/8, 612 = 6/12)',
+                        ),
+                      ),
+                    ),
+                    ElevatedButton(
+                      // green button
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.green,
+                      ),
+                      onPressed: () {},
+                      child: const Text(
+                        'เชื่อมต่อเข้าสู่ระบบ',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                    )
                   ],
                 ),
               ),
               ElevatedButton(
-                child: const Text('Sign out'),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.red,
+                ),
+                child: const Text(
+                  'ออกจากระบบ',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
                 onPressed: () async {
                   await FirebaseServices().signOut().then((value) {
                     // pop up another screen

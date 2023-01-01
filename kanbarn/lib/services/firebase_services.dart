@@ -19,10 +19,16 @@ class FirebaseServices {
           accessToken: googleSignInAuthentication.accessToken,
           idToken: googleSignInAuthentication.idToken,
         ); // this credential is used to sign in to firebase
-
+        // check if user email ended with @nmrsw2.ac.th
+        if (googleSignInAccount.email.endsWith('@nmrsw2.ac.th') == false) {
+          // if not, sign out and return false -> will be redirected to rejected page
+          await _auth.signOut();
+          await _googleSignIn.signOut();
+          return false;
+        }
         await _auth.signInWithCredential(credential);
         // callback function
-        return null;
+        return true;
       }
     } on FirebaseAuthException catch (e) {
       debugPrint(e.message);
@@ -33,10 +39,10 @@ class FirebaseServices {
   signOut() async {
     await _auth.signOut();
     await _googleSignIn.signOut();
-    return null;
+    return true;
   }
 
-  save_user(data) async {
+  storeUserMetaData(Map<String, dynamic> data) async {
     // save data to firebase
     // https://firebase.flutter.dev/docs/firestore/usage/
   }
