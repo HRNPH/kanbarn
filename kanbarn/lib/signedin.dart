@@ -68,13 +68,26 @@ class _SignedInState extends State<SignedIn> {
                     ElevatedButton(
                       // green button
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.green,
+                        backgroundColor: Colors.redAccent[200],
                       ),
-                      onPressed: () {},
-                      child: const Text(
+                      onPressed: () async {
+                        // loading screen
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return const Center(
+                              child: CircularProgressIndicator(
+                                color: Colors.redAccent,
+                                backgroundColor: Colors.white,
+                              ),
+                            );
+                          },
+                        );
+                      },
+                      child: Text(
                         'เชื่อมต่อเข้าสู่ระบบ',
                         style: TextStyle(
-                          fontSize: 20,
+                          fontSize: MediaQuery.of(context).size.width * 0.06,
                           fontWeight: FontWeight.bold,
                           color: Colors.white,
                         ),
@@ -85,12 +98,12 @@ class _SignedInState extends State<SignedIn> {
               ),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.red,
+                  backgroundColor: Colors.redAccent[100],
                 ),
-                child: const Text(
+                child: Text(
                   'ออกจากระบบ',
                   style: TextStyle(
-                    fontSize: 20,
+                    fontSize: MediaQuery.of(context).size.width * 0.04,
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
                   ),
