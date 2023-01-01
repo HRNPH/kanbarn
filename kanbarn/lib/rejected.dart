@@ -43,11 +43,11 @@ class Rejected extends StatelessWidget {
               ),
               child: const Text('กลับไปหน้าที่แล้ว'),
               onPressed: () {
-                Navigator.push(
+                // go back to the previous page and remove all the routes
+                Navigator.pushAndRemoveUntil(
                   context,
-                  MaterialPageRoute(
-                    builder: (context) => routes,
-                  ),
+                  MaterialPageRoute(builder: (context) => routes),
+                  (Route<dynamic> route) => false,
                 );
               },
             ),

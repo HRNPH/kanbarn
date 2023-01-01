@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -49,13 +51,20 @@ class FirebaseServices {
       if (data['classroom'][0].contains(RegExp(r'[0-9]'))) {
         if (data['classroom'][1] == '0' || data['classroom'][1] == '1') {
           if (data['classroom'][2].contains(RegExp(r'[0-9]'))) {
-            // if data is valid, store it to firebase
+            // if data is valid, store it to firebase else return false to rejected page
 
             return true;
+          } else {
+            return false;
           }
+        } else {
+          return false;
         }
+      } else {
+        return false;
       }
+    } else {
+      return false;
     }
-    return false;
   }
 }
