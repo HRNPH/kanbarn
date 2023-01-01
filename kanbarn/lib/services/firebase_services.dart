@@ -41,7 +41,7 @@ class FirebaseServices {
     }
   }
 
-  signOut() async {
+  Future<bool> signOut() async {
     await _auth.signOut();
     await _googleSignIn.signOut();
     return true;
